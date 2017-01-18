@@ -3,16 +3,24 @@
 //
 
 #include "libs/header.h"
+#define NBRWHEELS 3
+#define BASETIME 120
 
+typedef struct controller_t{
+    wheel wheels[NBRWHEELS];
+    //struct pour gérer les signaux à ajouter ici
+    int coins;
+    int win;
+    int gameState;
+} controller;
 
 int main(int argc, char** argv){
-    display displayData = malloc(sizeof(controller));
+    controller controllerData = malloc(sizeof(controller));
     pthread_t wheelsT[NBRWHEELS];
     bool running = true;
 
     while (running){
         for (int i = 0; i < NBRWHEELS; ++i) {
-            controllerData.wheels[i] = malloc(sizeof(wheel));
             controllerData.wheels[i].id = i;
             controllerData.wheels[i].value = 0;
             controllerData.wheels[i].timeBase = BASETIME;
@@ -20,9 +28,6 @@ int main(int argc, char** argv){
 
 
 
-        for (int j = 0; j < NBRWHEELS; ++j) {
-            free(controllerData.wheels[i]);
-        }
         //si fin de jeu passer running à false
     }
     free(controllerData);

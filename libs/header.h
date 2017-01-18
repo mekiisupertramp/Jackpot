@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <pthread.h>
+#include <signal.h>
 #include "timing.h"
 #include "display.h"
 #include "wheels.h"
