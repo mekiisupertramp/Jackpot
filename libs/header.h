@@ -6,3 +6,4 @@
 #include <stdint.h>
 #include <SDL2/SDL.h>
 #include <pthread.h>
+#include "timing.h"
