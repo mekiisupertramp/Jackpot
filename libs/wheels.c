@@ -12,7 +12,7 @@ void* spinner(void* threadData){
 
     while(1){
         tdata.value+=1;
-        usleep(waitAMoment(&start, &finish, 1/(tdata->timeBase/tdata->value)));
+        usleep(waitAMoment(&start, &finish, (int)(1/(tdata->timeBase/tdata->value))));
     }
 }
 
