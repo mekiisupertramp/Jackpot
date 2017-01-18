@@ -4,9 +4,9 @@
 
 #include "wheels.h"
 
-void* worker(void* threadData){
+void* wheel(void* threadData){
     struct timespec start, finish;
-    wheel_t* tdata = (wheel_t*) threadData;
+    wheel* tdata = (wheel*) threadData;
     clock_gettime(CLOCK_MONOTONIC, &start);
     bool exitValue = true;
 

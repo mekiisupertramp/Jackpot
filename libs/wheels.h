@@ -7,7 +7,7 @@
 
 #include "timing.h"
 
-struct wheel_t {
+typedef struct wheel_t {
     int id;
     int value;
     int timeBase;
