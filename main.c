@@ -15,22 +15,26 @@ typedef struct controller_t{
 } controller;
 
 int main(int argc, char** argv){
-    controller controllerData = malloc(sizeof(controller));
+    controller controllerData;
     pthread_t wheelsT[NBRWHEELS];
     bool running = true;
 
     while (running){
+
+        //init wheels data
         for (int i = 0; i < NBRWHEELS; ++i) {
             controllerData.wheels[i].id = i;
             controllerData.wheels[i].value = 0;
             controllerData.wheels[i].timeBase = BASETIME;
+            // create the wheels threads
+            if(pthread_create(&wheelsT[i],NULL,spinner,&controllerData) != 0){
+                fprintf(stderr, "wheel pthread_create failed !\n");
+                return EXIT_FAILURE;
+            }
         }
-
-
 
         //si fin de jeu passer running à false
     }
-    free(controllerData);
 
 
     printf("derp\n");

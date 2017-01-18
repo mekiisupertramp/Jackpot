@@ -4,7 +4,7 @@
 
 #include "wheels.h"
 
-void* wheel(void* threadData){
+void* spinner(void* threadData){
     struct timespec start, finish;
     wheel* tdata = (wheel*) threadData;
     clock_gettime(CLOCK_MONOTONIC, &start);

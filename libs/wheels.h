@@ -13,6 +13,6 @@ typedef struct wheel_t {
     int timeBase;
 } wheel;
 
-void* worker(void* threadData);
+void* spinner(void* threadData);
 
 #endif //JACKPOT_WHEELS_H
