@@ -5,14 +5,11 @@
 #ifndef JACKPOT_WHEELS_H
 #define JACKPOT_WHEELS_H
 
-#include "timing.h"
+#include "header.h"
+#include "structThreads.h"
+//#include "timing.h"
 
-typedef struct wheel_t {
-    int id;
-    int value;
-    int timeBase;
-} wheel;
-
+double waitAMoment(struct timespec* start, struct timespec* finish, int time);
 void* spinner(void* threadData);
 
 #endif //JACKPOT_WHEELS_H
