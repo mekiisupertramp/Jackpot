@@ -1,14 +1,19 @@
-CC = gcc -Wall -std=gnu99 -c -lm -lpthread -lrt -g
+CC = gcc -Wall -std=gnu99 -c
 
-all: jackpot.o
-	gcc $^ -o jackpot -lm -lpthread
+all: jackpot.o wheels.o display.o timing.o
+	gcc $^ -o jackpot -lpthread
 
 jackpot.o: main.c
-	$(CC) $^ -o jackpot.o
+	$(CC) $< -o jackpot.o
 
-wheel.o: wheel.c wheel.h
-	$(CC) $^
+wheels.o: libs/wheels.c
+	$(CC) $<
+	
+display.o: libs/display.c
+	$(CC) $<
+
+timing.o: libs/timing.c
+	$(CC) $<
 
 clean:
 	rm -f *.o jackpot
-	rm -rf Libs/*.gch
