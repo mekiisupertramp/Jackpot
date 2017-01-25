@@ -1,6 +1,10 @@
-//
-// Created by Shinra on 18.01.17.
-//
+/**
+* \file display.h
+* \brief graphic library prototypes
+* \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
+* \version 1.0
+* \date 25.01.2017
+*/
 
 #ifndef _JACKPOT_DISPLAY_H
 #define _JACKPOT_DISPLAY_H

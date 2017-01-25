@@ -1,6 +1,10 @@
-//
-// Created by Shinra on 18.01.17.
-//
+/**
+ * \file wheels.h
+ * \brief wheels's prototypes
+ * \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
+ * \version 1.0
+ * \date 25.01.2017
+ */
 
 #ifndef JACKPOT_WHEELS_H
 #define JACKPOT_WHEELS_H

@@ -1,3 +1,10 @@
+/**
+* \file display.c
+* \brief graphic library functions
+* \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
+* \version 1.0
+* \date 25.01.2017
+*/
 
 #include "display.h"
 

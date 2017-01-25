@@ -1,3 +1,11 @@
+/**
+ * \file header.h
+ * \brief files to includes everywhere
+ * \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
+ * \version 1.0
+ * \date 25.01.2017
+ */
+
 #ifndef _HEADER_
 #define _HEADER_
 

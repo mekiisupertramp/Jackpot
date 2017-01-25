@@ -1,6 +1,10 @@
-//
-// Created by pierre.buffo on 11.01.17.
-//
+/**
+* \file main.c
+* \brief programm's entry point
+* \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
+* \version 1.0
+* \date 25.01.2017
+*/
 
 #include "libs/header.h"
 #include "libs/structThreads.h"
