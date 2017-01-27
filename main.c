@@ -15,7 +15,6 @@ int main(int argc, char** argv){
 
     cond_t condVar;
     condVar.var = 0;
-    condVar.m = PTHREAD_MUTEX_INITIALIZER;
     pthread_cond_init(&condVar.cond,NULL);
 
     controller_t controllerData;
@@ -44,7 +43,12 @@ int main(int argc, char** argv){
 			return EXIT_FAILURE;
 		}
 
+    while (1){
 
+    }
+    //on join les threads de roues
+    //on join le thread d'affichage
+    //on join le thread de signal
 
     return 0;
 }
