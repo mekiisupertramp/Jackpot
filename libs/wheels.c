@@ -8,6 +8,8 @@
 
 #include "wheels.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
 /**
  * run the wheels, "rien ne va plus"
  * @param threadData - thread's data, containing speed of rotation and current value
@@ -15,15 +17,26 @@
  */
 void* spinner(void* threadData){
     struct timespec start, finish;
-    controller* tdata = (controller*) threadData;
+    wheel_t* tdata = (wheel_t*) threadData;
     clock_gettime(CLOCK_MONOTONIC, &start);
     //bool exitValue = true;
 
     while(1){
-        tdata->wheels[0].value+=1;
-        usleep(waitAMoment(&start, &finish, (int)(BASETIME/tdata->wheels[0].value)));
+
+        // the thread sleep if wheel number is smaller or equal to the variable condition
+        pthread_mutex_lock(&(tdata->condMutex->m));
+        if(tdata->value <= tdata->condMutex->var)
+            pthread_cond_wait(&(tdata->condMutex->cond),&(tdata->condMutex->m));
+        pthread_mutex_unlock(&(tdata->condMutex->m));
+
+        tdata->value+=1;
+        usleep(waitAMoment(&start, &finish, (int)(BASETIME/(tdata->timeBase/(tdata->id+1)))));
+        if (tdata->value>=NRBSYMBOLS-1) {
+            tdata->value = 0;
+        }
     }
 }
+#pragma clang diagnostic pop
 
 /**
  * calculate the time to wait before the next refresh with the process time
@@ -32,7 +45,6 @@ void* spinner(void* threadData){
  * @param time - time in miliseconds to wait
  * @return time to wait in nanoseconds or 0 if work process too long
  */
- 
 double waitAMoment(struct timespec* start, struct timespec* finish, int time){
 
     double sleepTime, deltaT = 0;

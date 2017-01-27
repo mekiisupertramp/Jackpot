@@ -19,7 +19,7 @@ const char* SYMBOLES[] = {"0","1","2","3","4","5","6","7","8","9"};
  **********************************************************************/
 void* display(void* threadData){
 	
-	controller* tdata = (controller*)(threadData);
+	controller_t* tdata = (controller_t*)(threadData);
 	struct timespec start, finish;
 	clock_gettime(CLOCK_MONOTONIC, &start);
 	
