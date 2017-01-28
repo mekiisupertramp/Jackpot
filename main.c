@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
         //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
         //pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m));
         //alarm(1); //ne pas déplacer, garantit que
-        kill(getpid(),SIGALRM);
+        raise(SIGALRM);
         pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));
         controllerData.gameState = WAITING;
 
