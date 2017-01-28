@@ -8,8 +8,6 @@
 
 #include "wheels.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
 /**
  * run the wheels, "rien ne va plus"
  * @param threadData - thread's data, containing speed of rotation and current value
@@ -22,12 +20,17 @@ void* spinner(void* threadData){
     //bool exitValue = true;
 
     while(1){
-
+        bool temp = false;
         // the thread sleep if wheel number is smaller or equal to the variable condition
         pthread_mutex_lock(&(tdata->condMutex->m));
-        if(tdata->value <= tdata->condMutex->var)
+        while(tdata->value <= tdata->condMutex->var)
             pthread_cond_wait(&(tdata->condMutex->cond),&(tdata->condMutex->m));
+        // if var == -1 it's time to go home
+        if(tdata->condMutex->var == FINISHEDPROGRAM)
+            temp = true;
         pthread_mutex_unlock(&(tdata->condMutex->m));
+        // go home
+        if(temp) return NULL;
 
         tdata->value+=1;
         usleep(waitAMoment(&start, &finish, (int)(BASETIME/(tdata->timeBase/(tdata->id+1)))));
@@ -36,7 +39,6 @@ void* spinner(void* threadData){
         }
     }
 }
-#pragma clang diagnostic pop
 
 /**
  * calculate the time to wait before the next refresh with the process time

@@ -13,6 +13,7 @@
 #define NRBSYMBOLS 10
 #define BASETIME 12000 //time in miliseconds to wait before turn
 #define FREQUENCY 1 // screen refresh frequency
+#define INITIALANTE 1 // (mise initiale)
 
 #define WAITING 0 	// the game is waiting for a coin
 #define ROLLING 1	// the game is turning
@@ -22,6 +23,7 @@
 #define DOUBLEWIN 1	// the user made a double win
 #define FULLWIN 2	// the user won
 
+#define FINISHEDPROGRAM -1 // the user decided to quit the game
 
 /**
  * \struct cond
@@ -50,10 +52,10 @@ typedef struct wheel_t{
  */
 typedef struct controller_t{
     wheel_t wheels[NBRWHEELS];  /*<! struct pour gérer les signaux à ajouter ici */
-    int gameState; 	            /*<! WAITING, ROLLING, FINISHED */
-    int win; 		            /*<! LOST, DOUBLEWIN, FULLWIN */
-    int coinsWin;	            /*<! coins win by the player */
-    int coins;		            /*<! coins left in the machine */
+    int gameState;              /*<! WAITING, ROLLING, FINISHED */
+    int win;                    /*<! LOST, DOUBLEWIN, FULLWIN */
+    int coinsWin;               /*<! coins win by the player */
+    int coins;                  /*<! coins left in the machine */
 } controller_t;
 
 #endif

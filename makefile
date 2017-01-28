@@ -1,14 +1,14 @@
 CC = gcc -Wall -std=gnu99 -c
 
 all: jackpot.o wheels.o display.o timing.o
-	gcc $^ -o jackpot -lpthread
+	gcc $^ -o jackpot -lm -lpthread
 
 jackpot.o: main.c
 	$(CC) $< -o jackpot.o
 
 wheels.o: libs/wheels.c
 	$(CC) $<
-	
+
 display.o: libs/display.c
 	$(CC) $<
 
