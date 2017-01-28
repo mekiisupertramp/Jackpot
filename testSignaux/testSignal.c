@@ -16,6 +16,8 @@ int main(int argc, char **argv){
 		fprintf(stderr, "signal thread failed !\n");
 		return EXIT_FAILURE;
 	}
+  sleep(1);
+  alarm(3);
 
   if (pthread_join(tSignal,NULL) != 0) {
 		perror("displayer pthread_join");

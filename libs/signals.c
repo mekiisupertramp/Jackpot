@@ -17,6 +17,7 @@
 void *signalReceiver(void *threadData){
   controller_t* tdata = (controller_t*)(threadData);
   int signal;
+  int cptWheels=0;
   int quit = 0;
 
   sigset_t mask, maskold;
@@ -28,10 +29,16 @@ void *signalReceiver(void *threadData){
   do {
     sigwait(&mask,&signal); // waiting for a signal
     switch (signal) {
-      case SIGINT:
+      case SIGINT:  // stop the current wheel
+          tdata->wheels[cptWheels].condMutex->var = cptWheels;
+          cptWheels++;
           printf("%s\n", "SIGINT RECEIVED");
         break;
-      case SIGTSTP:
+      case SIGTSTP: // insert coin
+          tdata->gameState = ROLLING;
+          tdata->coins++;
+          pthread_cond_broadcast(&tdata->wheels[0].condMutex->cond);
+          cptWheels=0;
           printf("%s\n", "SIGTSTP RECEIVED");
         break;
       case SIGQUIT:
