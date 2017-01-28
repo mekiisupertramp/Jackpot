@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
         //***** au bout de 5 secondes le signal ou je sais pas quoi met la variable gameState
         //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
         alarm(0);
-        controllerData.wheels[0].condMutex->m.lock();
+        pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m));
         pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));
         controllerData.gameState = WAITING;
 

@@ -23,7 +23,7 @@ void* spinner(void* threadData){
         bool exit = false;
         // the thread sleep if wheel number is smaller or equal to the variable condition
         pthread_mutex_lock(&(tdata->condMutex->m));
-        while(tdata->value <= tdata->condMutex->var)
+        while(tdata->id <= tdata->condMutex->var)
             pthread_cond_wait(&(tdata->condMutex->cond),&(tdata->condMutex->m));
         // if var == -1 it's time to go home
         if(tdata->condMutex->var == FINISHEDPROGRAM)
