@@ -15,5 +15,6 @@
 
 double waitAMoment(struct timespec* start, struct timespec* finish, int time);
 void* spinner(void* threadData);
+int GetWin(controller_t controllerData);
 
 #endif //JACKPOT_WHEELS_H

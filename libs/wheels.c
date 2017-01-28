@@ -20,17 +20,17 @@ void* spinner(void* threadData){
     //bool exitValue = true;
 
     while(1){
-        bool temp = false;
+        bool exit = false;
         // the thread sleep if wheel number is smaller or equal to the variable condition
         pthread_mutex_lock(&(tdata->condMutex->m));
         while(tdata->value <= tdata->condMutex->var)
             pthread_cond_wait(&(tdata->condMutex->cond),&(tdata->condMutex->m));
         // if var == -1 it's time to go home
         if(tdata->condMutex->var == FINISHEDPROGRAM)
-            temp = true;
+            exit = true;
         pthread_mutex_unlock(&(tdata->condMutex->m));
         // go home
-        if(temp) return NULL;
+        if(exit) return NULL;
 
         tdata->value+=1;
         usleep(waitAMoment(&start, &finish, (int)(BASETIME/(tdata->timeBase/(tdata->id+1)))));
@@ -57,4 +57,23 @@ double waitAMoment(struct timespec* start, struct timespec* finish, int time){
     clock_gettime(CLOCK_MONOTONIC, start);
 
     return (sleepTime > 0) ? sleepTime : 0;
+}
+
+int GetWin(controller_t controllerData){
+    int winStatus = FULLWIN;
+    int provSymbol = controllerData.wheels[0].value;
+    int provSymbol2 = -1;
+    for (int i = 0; i < NBRWHEELS; ++i) {
+        if (provSymbol != controllerData.wheels[i].value){
+            winStatus = DOUBLEWIN;
+            if (provSymbol2 == -1) {
+                provSymbol2 = controllerData.wheels[i].value;
+            } else {
+                if (provSymbol2 != controllerData.wheels[i].value){
+                    return LOST;
+                }
+            }
+        }
+    }
+    return winStatus;
 }

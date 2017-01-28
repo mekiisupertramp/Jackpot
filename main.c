@@ -13,12 +13,12 @@
 #include "libs/wheels.h"
 #include "libs/signals.h"
 
-int main(int argc, char** argv){
+int main(int argc, char **argv) {
 
     cond_t condVar;
     condVar.var = 0;
-    condVar.cond =  (pthread_cond_t)PTHREAD_COND_INITIALIZER;
-    condVar.m = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+    condVar.cond = (pthread_cond_t) PTHREAD_COND_INITIALIZER;
+    condVar.m = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 
     controller_t controllerData;
     pthread_t wheelsT[NBRWHEELS];
@@ -33,7 +33,7 @@ int main(int argc, char** argv){
     // blocking all the signals for heritage
     sigset_t mask;
     sigfillset(&mask);
-    pthread_sigmask(SIG_SETMASK,&mask,NULL); // block all signals
+    pthread_sigmask(SIG_SETMASK, &mask, NULL); // block all signals
 
     //init wheels data
     for (int i = 0; i < NBRWHEELS; ++i) {
@@ -42,16 +42,16 @@ int main(int argc, char** argv){
         controllerData.wheels[i].timeBase = BASETIME;
         controllerData.wheels[i].condMutex = &condVar;
         // create the wheels threads
-        if(pthread_create(&wheelsT[i],NULL,spinner,&controllerData.wheels[i]) != 0){
+        if (pthread_create(&wheelsT[i], NULL, spinner, &controllerData.wheels[i]) != 0) {
             fprintf(stderr, "wheel_t pthread_create failed !\n");
             return EXIT_FAILURE;
         }
     }
     // create the display threads
-		if(pthread_create(&disp,NULL,display,&controllerData) != 0){
-			fprintf(stderr, "disp pthread_create failed !\n");
-			return EXIT_FAILURE;
-		}
+    if (pthread_create(&disp, NULL, display, &controllerData) != 0) {
+        fprintf(stderr, "disp pthread_create failed !\n");
+        return EXIT_FAILURE;
+    }
 
 
     // create the signal threads
@@ -63,52 +63,59 @@ int main(int argc, char** argv){
 
 
     pthread_mutex_lock(&condVar.m);
-    while (condVar.var != FINISHEDPROGRAM){
+    while (condVar.var != FINISHEDPROGRAM) {
 
         // ************** insert a coin donc normalement on doit faire
         // ************** controllerData.coins += 1;
 
-      while(condVar.var != NBRWHEELS)
-        pthread_cond_wait(&condVar.cond,&condVar.m);
+        while (condVar.var != NBRWHEELS)
+            pthread_cond_wait(&condVar.cond, &condVar.m);
 
-      controllerData.gameState = FINISHED;
-      //controllerData.win = GetWin(); ********** PIERRE ***********************
-      int tempCoins;
-      switch(controllerData.win){
-        case FULLWIN: tempCoins = (int)floor(controllerData.coins/2);
-          break;
-        case DOUBLEWIN: tempCoins = INITIALANTE*2;
-          break;
-        case LOST: tempCoins = 0;
-          break;
-      }
+        controllerData.gameState = FINISHED;
+        controllerData.win = GetWin(controllerData);
+        int tempCoins;
+        switch (controllerData.win) {
+            case FULLWIN:
+                tempCoins = (int) floor(controllerData.coins / 2);
+                break;
+            case DOUBLEWIN:
+                tempCoins = INITIALANTE * 2;
+                break;
+            case LOST:
+                tempCoins = 0;
+                break;
+        }
 
-      // avoiding to win more coins that stocked in the machine
-      if(tempCoins <= controllerData.coins)
-         controllerData.coinsWin = tempCoins;
-      else
-         controllerData.coinsWin = controllerData.coins;
-      // updating the coins stayed in the machine
-      controllerData.coins -= controllerData.coinsWin;
+        // avoiding to win more coins that stocked in the machine
+        if (tempCoins <= controllerData.coins)
+            controllerData.coinsWin = tempCoins;
+        else
+            controllerData.coinsWin = controllerData.coins;
+        // updating the coins stayed in the machine
+        controllerData.coins -= controllerData.coinsWin;
 
-      // lance timer 5s
-      //***** au bout de 5 secondes le signal ou je sais pas quoi met la variable gameState
-      //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
+        // lance timer 5s
+        //***** au bout de 5 secondes le signal ou je sais pas quoi met la variable gameState
+        //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
+        alarm(0);
+        controllerData.wheels[0].condMutex->m.lock();
+        pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));
+        controllerData.gameState = WAITING;
 
-      // waiting for restart
-      while(condVar.var == NBRWHEELS)
-        pthread_cond_wait(&condVar.cond,&condVar.m);
+        // waiting for restart
+        while (condVar.var == NBRWHEELS)
+            pthread_cond_wait(&condVar.cond, &condVar.m);
     }
     pthread_mutex_unlock(&condVar.m);
 
     for (int i = 0; i < NBRWHEELS; ++i) {
         // create the wheels threads
-        if(pthread_join(wheelsT[i],NULL) != 0){
+        if (pthread_join(wheelsT[i], NULL) != 0) {
             fprintf(stderr, "wheelsT pthread_join failed !\n");
             return EXIT_FAILURE;
         }
     }
-    if(pthread_join(disp,NULL) != 0){
+    if (pthread_join(disp, NULL) != 0) {
         fprintf(stderr, "disp pthread_join failed !\n");
         return EXIT_FAILURE;
     }
