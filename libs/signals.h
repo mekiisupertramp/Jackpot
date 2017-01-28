@@ -1,5 +1,5 @@
 /**
-* \file signals.c
+* \file signals.h
 * \brief signals library
 * \author BUFFO Pierre, DA SILVA Gabriel, MEHMED Blazevic
 * \version 1.0
@@ -9,11 +9,9 @@
 #ifndef SIGNAL_H
 #define  SIGNAL_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <signal.h>
-#include <pthread.h>
+#include "header.h"
+#include "structThreads.h"
 
-void *signalReceiver(void *datas);
+void *signalReceiver(void *threadData);
 
 #endif

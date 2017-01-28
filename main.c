@@ -11,6 +11,7 @@
 #include "libs/structThreads.h"
 #include "libs/display.h"
 #include "libs/wheels.h"
+#include "libs/signals.h"
 
 int main(int argc, char** argv){
 
@@ -22,6 +23,7 @@ int main(int argc, char** argv){
     controller_t controllerData;
     pthread_t wheelsT[NBRWHEELS];
     pthread_t disp;
+    pthread_t sign;
     controllerData.gameState = WAITING;
     controllerData.win = LOST;
     controllerData.coinsWin = 0;
@@ -51,13 +53,13 @@ int main(int argc, char** argv){
 			return EXIT_FAILURE;
 		}
 
-/*
+
     // create the signal threads
-if(pthread_create(&sign,NULL,TAFONCTION,&controllerData) != 0){
-  fprintf(stderr, "sign pthread_create failed !\n");
-  return EXIT_FAILURE;
-}
-*/
+    if(pthread_create(&sign,NULL,signalReceiver,&controllerData) != 0){
+      fprintf(stderr, "sign pthread_create failed !\n");
+      return EXIT_FAILURE;
+    }
+
 
 
     pthread_mutex_lock(&condVar.m);
@@ -110,12 +112,11 @@ if(pthread_create(&sign,NULL,TAFONCTION,&controllerData) != 0){
         fprintf(stderr, "disp pthread_join failed !\n");
         return EXIT_FAILURE;
     }
-      /*
+
     if(pthread_join(sign,NULL) != 0){
         fprintf(stderr, "sign pthread_join failed !\n");
         return EXIT_FAILURE;
     }
-      */
 
     return 0;
 }
