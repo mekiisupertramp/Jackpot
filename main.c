@@ -16,7 +16,7 @@
 int main(int argc, char **argv) {
 
     cond_t condVar;
-    condVar.var = 0;
+    condVar.var = NBRWHEELS+1;
     condVar.cond = (pthread_cond_t) PTHREAD_COND_INITIALIZER;
     condVar.m = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     controllerData.gameState = WAITING;
     controllerData.win = LOST;
     controllerData.coinsWin = 0;
-    controllerData.coins = 12;
+    controllerData.coins = 10;
 
 
     // blocking all the signals for heritage
@@ -68,9 +68,10 @@ int main(int argc, char **argv) {
         // ************** insert a coin donc normalement on doit faire
         // ************** controllerData.coins += 1;
 
-        while (condVar.var != NBRWHEELS)
+        while (condVar.var != NBRWHEELS) {
+            //pthread_mutex_lock(&condVar.m);
             pthread_cond_wait(&condVar.cond, &condVar.m);
-
+        }
         controllerData.gameState = FINISHED;
         controllerData.win = GetWin(controllerData);
         int tempCoins;
@@ -97,8 +98,9 @@ int main(int argc, char **argv) {
         // lance timer 5s
         //***** au bout de 5 secondes le signal ou je sais pas quoi met la variable gameState
         //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
-        alarm(0);
-        pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m));
+        //pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m));
+        //alarm(1); //ne pas déplacer, garantit que
+        kill(getpid(),SIGALRM);
         pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));
         controllerData.gameState = WAITING;
 
