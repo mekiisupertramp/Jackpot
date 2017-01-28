@@ -54,10 +54,7 @@ void *signalReceiver(void *threadData) {
                 quit = 1;
                 break;
             case SIGALRM:
-                printf("%s\n", "SIGALRM T RECEIVED");
                 sleep(5);
-
-                printf("%s\n", "SIGALRM T RECEIVED");
                 pthread_mutex_lock(&(tdata->wheels[0].condMutex->m));
                 pthread_cond_broadcast(&tdata->wheels[0].condMutex->cond);
                 pthread_mutex_unlock(&(tdata->wheels[0].condMutex->m));
