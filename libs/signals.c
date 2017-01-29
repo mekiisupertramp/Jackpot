@@ -50,8 +50,8 @@ void *signalReceiver(void *threadData) {
                 break;
             case SIGALRM: // waiting 5 seconds at the end
                 alarm(0);
-                if (tdata->wheels[0].condMutex->var != NBRWHEELS){
-                    kill(getpid(),SIGINT);
+                if (tdata->wheels[0].condMutex->var != NBRWHEELS) {
+                    kill(getpid(), SIGINT);
                 } else {
                     sleep(5);
                     tdata->gameState = WAITING;

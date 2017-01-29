@@ -14,23 +14,23 @@ struct timespec start, finish;
 /**
  * get the first clock time
  */
-void startTime(){
-	clock_gettime(CLOCK_MONOTONIC, &start);
+void startTime() {
+    clock_gettime(CLOCK_MONOTONIC, &start);
 }
 
 /**
  * get the second clock time
  */
-void stopTime(){
-	clock_gettime(CLOCK_MONOTONIC, &finish);
+void stopTime() {
+    clock_gettime(CLOCK_MONOTONIC, &finish);
 }
 
 /**
  * get the difference between the first and the second clock time in seconds
  * @return elapsed time
  */
-double getCntTime(){
-	double elapsed = finish.tv_sec - start.tv_sec;
-	elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
-	return elapsed;
+double getCntTime() {
+    double elapsed = finish.tv_sec - start.tv_sec;
+    elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+    return elapsed;
 }

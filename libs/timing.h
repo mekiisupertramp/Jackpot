@@ -12,7 +12,9 @@
 #define _TIMING_H
 
 void startTime();
+
 void stopTime();
+
 double getCntTime();
 
 

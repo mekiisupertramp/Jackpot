@@ -55,14 +55,14 @@ int main(int argc, char **argv) {
     }
 
     // create the signal threads
-    if(pthread_create(&sign,NULL,signalReceiver,&controllerData) != 0){
-      fprintf(stderr, "sign pthread_create failed !\n");
-      return EXIT_FAILURE;
+    if (pthread_create(&sign, NULL, signalReceiver, &controllerData) != 0) {
+        fprintf(stderr, "sign pthread_create failed !\n");
+        return EXIT_FAILURE;
     }
 
     pthread_mutex_lock(&condVar.m);
     while (condVar.var != FINISHEDPROGRAM) {
-
+        //as long as wheels are still spinning and programm is not finished
         while (condVar.var != NBRWHEELS && condVar.var != FINISHEDPROGRAM) {
             pthread_cond_wait(&condVar.cond, &condVar.m);
         }
@@ -72,13 +72,13 @@ int main(int argc, char **argv) {
         switch (controllerData.win) {
             case FULLWIN:
                 tempCoins = (int) floor(controllerData.coins / 2);
-            break;
+                break;
             case DOUBLEWIN:
                 tempCoins = INITIALANTE * 2;
-            break;
+                break;
             case LOST:
                 tempCoins = 0;
-            break;
+                break;
         }
 
         // avoiding to win more coins that stocked in the machine
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
             controllerData.coinsWin = controllerData.coins;
         // updating the coins stayed in the machine
         controllerData.coins -= controllerData.coinsWin;
-        kill(getpid(),SIGALRM);
+        kill(getpid(), SIGALRM);
 
         // waiting for restart
         while (condVar.var == NBRWHEELS && condVar.var != FINISHEDPROGRAM)
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    if(pthread_join(sign,NULL) != 0){
+    if (pthread_join(sign, NULL) != 0) {
         fprintf(stderr, "sign pthread_join failed !\n");
         return EXIT_FAILURE;
     }

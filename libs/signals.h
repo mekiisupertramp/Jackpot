@@ -13,6 +13,7 @@
 #include "structThreads.h"
 
 void *signalReceiver(void *threadData);
+
 void *timer(void *threadData);
 
 #endif
