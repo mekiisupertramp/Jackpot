@@ -65,6 +65,7 @@ void *signalReceiver(void *threadData) {
     } while ((quit == 0));
     pthread_mutex_lock(&(tdata->wheels[0].condMutex->m));
     tdata->wheels[0].condMutex->var = FINISHEDPROGRAM;
+    pthread_cond_broadcast(&tdata->wheels[0].condMutex->cond);
     pthread_mutex_unlock(&(tdata->wheels[0].condMutex->m));
 
     printf("%s\n", "hello");

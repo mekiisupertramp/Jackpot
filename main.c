@@ -95,9 +95,6 @@ int main(int argc, char **argv) {
         // updating the coins stayed in the machine
         controllerData.coins -= controllerData.coinsWin;
 
-        // lance timer 5s
-        //***** au bout de 5 secondes le signal ou je sais pas quoi met la variable gameState
-        //***** à WAINTING (c'est le mode qui affichera le message "Insert a coin")
         //pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m)); //faudrait mettre ça, Mais ça joue pas
         kill(getpid(),SIGALRM);
         pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));

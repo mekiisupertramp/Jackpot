@@ -51,6 +51,9 @@ void* display(void* threadData){
 		// waiting before refresh
 		usleep(waitAFrequency(&start,&finish,FREQUENCY));
 
+        if (tdata->gameState == FINISHEDPROGRAM){
+            return NULL;
+        }
 	}
 	return NULL;
 }
