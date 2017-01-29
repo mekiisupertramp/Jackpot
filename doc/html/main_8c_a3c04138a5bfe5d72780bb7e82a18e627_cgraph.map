@@ -1,8 +1,0 @@
-<map id="main" name="main">
-<area shape="rect" id="node2" href="$wheels_8c.html#a59ef57831500f5b1144c9e921d61d4a9" title="spinner" alt="" coords="126,5,190,32"/>
-<area shape="rect" id="node4" href="$display_8c.html#a42cb44b65db3afb21f0e868b54d8b620" title="display" alt="" coords="127,56,189,83"/>
-<area shape="rect" id="node6" href="$signals_8c.html#a6e85cf2c8ee979e0310b5912ec10307b" title="signalReceiver" alt="" coords="104,107,212,133"/>
-<area shape="rect" id="node7" href="$wheels_8c.html#a325987f64a525993cea919a5060e2933" title="GetWin" alt="" coords="125,157,191,184"/>
-<area shape="rect" id="node3" href="$wheels_8c.html#a6f17531bb0bf5f5af8f272e54f2b6b25" title="waitAMoment" alt="" coords="267,5,369,32"/>
-<area shape="rect" id="node5" href="$display_8c.html#a3133b3d552d10f6eb3b4178a5531f6f5" title="waitAFrequency" alt="" coords="260,56,376,83"/>
-</map>

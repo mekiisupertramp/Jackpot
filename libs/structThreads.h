@@ -15,6 +15,7 @@
 #define FREQUENCY 30    // screen refresh frequency
 #define INITIALANTE 1   // (mise initiale)
 #define INITIALCOINS 10 // Initial coins in the machine
+#define TIMEBEFOREWHEELTIMOUT 3 // time before a wheel stop spinning by itself
 
 #define WAITING  0 	// the game is waiting for a coin
 #define ROLLING  1	// the game is turning
@@ -26,8 +27,6 @@
 #define FULLWIN 2	  // the user won
 
 #define FINISHEDPROGRAM -1 // the user decided to quit the game
-
-#define TIMEBEFOREWHEELTIMOUT 3 // time before a wheel stop spinning by itself
 
 /**
  * \struct cond

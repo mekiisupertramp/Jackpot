@@ -1,9 +1,0 @@
-<map id="/home/shinra/ClionProjects/jackpot/libs/header.h" name="/home/shinra/ClionProjects/jackpot/libs/header.h">
-<area shape="rect" id="node2" href="$display_8h.html" title="graphic library prototypes " alt="" coords="81,95,260,136"/>
-<area shape="rect" id="node4" href="$main_8c.html" title="programm&#39;s entry point " alt="" coords="208,184,387,225"/>
-<area shape="rect" id="node5" href="$signals_8h.html" title="signals library " alt="" coords="335,95,513,136"/>
-<area shape="rect" id="node7" href="$wheels_8h.html" title="wheels&#39;s prototypes " alt="" coords="537,95,716,136"/>
-<area shape="rect" id="node3" href="$display_8c.html" title="graphic library functions " alt="" coords="5,184,184,225"/>
-<area shape="rect" id="node6" href="$signals_8c.html" title="signals library " alt="" coords="411,184,589,225"/>
-<area shape="rect" id="node8" href="$wheels_8c.html" title="wheels&#39;s functions " alt="" coords="613,184,792,225"/>
-</map>
