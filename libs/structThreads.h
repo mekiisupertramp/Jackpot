@@ -27,6 +27,8 @@
 
 #define FINISHEDPROGRAM -1 // the user decided to quit the game
 
+#define TIMEBEFOREWHEELTIMOUT 3 // time before a wheel stop spinning by itself
+
 /**
  * \struct cond
  * \brief contain condition's variable and the mutex
