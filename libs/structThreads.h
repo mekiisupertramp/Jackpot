@@ -12,7 +12,7 @@
 #define NBRWHEELS 3
 #define NRBSYMBOLS 10
 #define BASETIME 12000 //time in miliseconds to wait before turn
-#define FREQUENCY 1 // screen refresh frequency
+#define FREQUENCY 30 // screen refresh frequency
 #define INITIALANTE 1 // (mise initiale)
 
 #define WAITING 0 	// the game is waiting for a coin
