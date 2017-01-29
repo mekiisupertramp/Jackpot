@@ -6,14 +6,12 @@
 * \date 25.01.2017
 */
 
-#ifndef SIGNAL_H
-#define  SIGNAL_H
+#ifndef  _SIGNAL_H
+#define  _SIGNAL_H
 
 #include "header.h"
 #include "structThreads.h"
 
 void *signalReceiver(void *threadData);
-
-void *timer(void *threadData);
 
 #endif

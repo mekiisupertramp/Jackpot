@@ -17,7 +17,6 @@ void *spinner(void *threadData) {
     struct timespec start, finish;
     wheel_t *tdata = (wheel_t *) threadData;
     clock_gettime(CLOCK_MONOTONIC, &start);
-    //bool exitValue = true;
 
     while (1) {
         bool exit = false;

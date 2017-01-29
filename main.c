@@ -14,9 +14,8 @@
 #include "libs/signals.h"
 
 int main(int argc, char **argv) {
-
+    // --- init datas and threads ---
     cond_t condVar;
-    //condVar.var = NBRWHEELS+1;
     condVar.var = 0;
     condVar.cond = (pthread_cond_t) PTHREAD_COND_INITIALIZER;
     condVar.m = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
@@ -30,13 +29,12 @@ int main(int argc, char **argv) {
     controllerData.coinsWin = 0;
     controllerData.coins = INITIALCOINS;
 
-
     // blocking all the signals for heritage
     sigset_t mask;
     sigfillset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, NULL); // block all signals
 
-    //init wheels data
+    // init wheels data
     for (int i = 0; i < NBRWHEELS; ++i) {
         controllerData.wheels[i].id = i;
         controllerData.wheels[i].value = 0;
@@ -53,13 +51,13 @@ int main(int argc, char **argv) {
         fprintf(stderr, "disp pthread_create failed !\n");
         return EXIT_FAILURE;
     }
-
     // create the signal threads
     if (pthread_create(&sign, NULL, signalReceiver, &controllerData) != 0) {
         fprintf(stderr, "sign pthread_create failed !\n");
         return EXIT_FAILURE;
     }
 
+    // --- game's logic ---
     pthread_mutex_lock(&condVar.m);
     while (condVar.var != FINISHEDPROGRAM) {
         //as long as wheels are still spinning and programm is not finished
@@ -96,24 +94,24 @@ int main(int argc, char **argv) {
     }
     pthread_mutex_unlock(&condVar.m);
 
+    // --- ending the programm ---
     for (int i = 0; i < NBRWHEELS; ++i) {
-        // create the wheels threads
+        // join the wheels threads
         if (pthread_join(wheelsT[i], NULL) != 0) {
             fprintf(stderr, "wheelsT pthread_join failed !\n");
             return EXIT_FAILURE;
         }
     }
-
+    // join the display thread
     if (pthread_join(disp, NULL) != 0) {
         fprintf(stderr, "disp pthread_join failed !\n");
         return EXIT_FAILURE;
     }
-
+    // join the signals thread
     if (pthread_join(sign, NULL) != 0) {
         fprintf(stderr, "sign pthread_join failed !\n");
         return EXIT_FAILURE;
     }
-
     pthread_cond_destroy(&(condVar.cond));
     pthread_mutex_destroy(&(condVar.m));
     return 0;
