@@ -16,7 +16,8 @@
 int main(int argc, char **argv) {
 
     cond_t condVar;
-    condVar.var = NBRWHEELS+1;
+    //condVar.var = NBRWHEELS+1;
+    condVar.var = 0;
     condVar.cond = (pthread_cond_t) PTHREAD_COND_INITIALIZER;
     condVar.m = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 
@@ -27,7 +28,7 @@ int main(int argc, char **argv) {
     controllerData.gameState = WAITING;
     controllerData.win = LOST;
     controllerData.coinsWin = 0;
-    controllerData.coins = 10;
+    controllerData.coins = INITIALCOINS;
 
 
     // blocking all the signals for heritage
@@ -53,23 +54,16 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-
     // create the signal threads
     if(pthread_create(&sign,NULL,signalReceiver,&controllerData) != 0){
       fprintf(stderr, "sign pthread_create failed !\n");
       return EXIT_FAILURE;
     }
 
-
-
     pthread_mutex_lock(&condVar.m);
     while (condVar.var != FINISHEDPROGRAM) {
 
-        // ************** insert a coin donc normalement on doit faire
-        // ************** controllerData.coins += 1;
-
-        while (condVar.var != NBRWHEELS) {
-            //pthread_mutex_lock(&condVar.m);
+        while (condVar.var != NBRWHEELS && condVar.var != FINISHEDPROGRAM) {
             pthread_cond_wait(&condVar.cond, &condVar.m);
         }
         controllerData.gameState = FINISHED;
@@ -95,13 +89,10 @@ int main(int argc, char **argv) {
         // updating the coins stayed in the machine
         controllerData.coins -= controllerData.coinsWin;
 
-        //pthread_mutex_lock(&(controllerData.wheels[0].condMutex->m)); //faudrait mettre ça, Mais ça joue pas
         kill(getpid(),SIGALRM);
-        pthread_cond_wait(&(controllerData.wheels[0].condMutex->cond),&(controllerData.wheels[0].condMutex->m));
-        controllerData.gameState = WAITING;
 
         // waiting for restart
-        while (condVar.var == NBRWHEELS)
+        while (condVar.var == NBRWHEELS && condVar.var != FINISHEDPROGRAM)
             pthread_cond_wait(&condVar.cond, &condVar.m);
     }
     pthread_mutex_unlock(&condVar.m);
@@ -113,6 +104,7 @@ int main(int argc, char **argv) {
             return EXIT_FAILURE;
         }
     }
+
     if (pthread_join(disp, NULL) != 0) {
         fprintf(stderr, "disp pthread_join failed !\n");
         return EXIT_FAILURE;
@@ -123,5 +115,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
+    pthread_cond_destroy(&(condVar.cond));
+    pthread_mutex_destroy(&(condVar.m));
     return 0;
 }

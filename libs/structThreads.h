@@ -14,6 +14,7 @@
 #define BASETIME 12000 //time in miliseconds to wait before turn
 #define FREQUENCY 30 // screen refresh frequency
 #define INITIALANTE 1 // (mise initiale)
+#define INITIALCOINS 10 // Initial coins in the machine
 
 #define WAITING 0 	// the game is waiting for a coin
 #define ROLLING 1	// the game is turning

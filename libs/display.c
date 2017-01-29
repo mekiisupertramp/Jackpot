@@ -36,11 +36,13 @@ void* display(void* threadData){
 
 	while(1){
 		// the text to display is selected in the array
-		printf(CLEARSCREEN GOHOME "%s\n",topScreen[tdata->gameState]);
-		printf("\n ");
+		printf(CLEARSCREEN GOHOME "%s\n\n ",topScreen[tdata->gameState]);
+
 		// print the symbols separated by a space
-		for(int i = 0; i < NBRWHEELS; i++)
-			printf("%s ",SYMBOLES[tdata->wheels[i].value]);
+		if(tdata->gameState != WAITING){
+			for(int i = 0; i < NBRWHEELS; i++)
+				printf("%s ",SYMBOLES[tdata->wheels[i].value]);
+		}
 
 		printf("\n\n");
 		if(tdata->gameState == FINISHED){
@@ -51,7 +53,7 @@ void* display(void* threadData){
 		// waiting before refresh
 		usleep(waitAFrequency(&start,&finish,FREQUENCY));
 
-        if (tdata->gameState == FINISHEDPROGRAM){
+        if (tdata->wheels[0].condMutex->var == FINISHEDPROGRAM){
             return NULL;
         }
 	}
