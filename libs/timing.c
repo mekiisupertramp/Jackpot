@@ -8,7 +8,7 @@
 
 #include "timing.h"
 
-//globalss variables
+//globales variables
 struct timespec start, finish;
 
 /**

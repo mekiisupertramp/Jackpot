@@ -13,7 +13,8 @@
 #include "structThreads.h"
 
 
-double waitAFrequency(struct timespec* start, struct timespec* finish, int frequency);
+double waitAFrequency(struct timespec* start, struct timespec* finish,
+                                                                int frequency);
 void* display(void* threadData);
 
 #endif //JACKPOT_DISPLAY_H

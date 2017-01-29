@@ -11,18 +11,19 @@
 
 #define NBRWHEELS 3
 #define NRBSYMBOLS 10
-#define BASETIME 12000 //time in miliseconds to wait before turn
-#define FREQUENCY 30 // screen refresh frequency
-#define INITIALANTE 1 // (mise initiale)
+#define BASETIME 12000  //time in miliseconds to wait before turn
+#define FREQUENCY 30    // screen refresh frequency
+#define INITIALANTE 1   // (mise initiale)
 #define INITIALCOINS 10 // Initial coins in the machine
 
-#define WAITING 0 	// the game is waiting for a coin
-#define ROLLING 1	// the game is turning
+#define WAITING  0 	// the game is waiting for a coin
+#define ROLLING  1	// the game is turning
 #define FINISHED 2	// the game is finished and the scores are given
+#define ENDMSG   3  // the game is finished too, show the end message
 
-#define LOST 0		// the user lost the party
+#define LOST 0		  // the user lost the party
 #define DOUBLEWIN 1	// the user made a double win
-#define FULLWIN 2	// the user won
+#define FULLWIN 2	  // the user won
 
 #define FINISHEDPROGRAM -1 // the user decided to quit the game
 

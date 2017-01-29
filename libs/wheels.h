@@ -11,7 +11,6 @@
 
 #include "header.h"
 #include "structThreads.h"
-//#include "timing.h"
 
 double waitAMoment(struct timespec* start, struct timespec* finish, int time);
 void* spinner(void* threadData);

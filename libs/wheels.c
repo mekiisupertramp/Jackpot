@@ -38,6 +38,7 @@ void* spinner(void* threadData){
             tdata->value = 0;
         }
     }
+    return NULL;
 }
 
 /**

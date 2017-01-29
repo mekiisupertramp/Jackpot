@@ -72,13 +72,13 @@ int main(int argc, char **argv) {
         switch (controllerData.win) {
             case FULLWIN:
                 tempCoins = (int) floor(controllerData.coins / 2);
-                break;
+            break;
             case DOUBLEWIN:
                 tempCoins = INITIALANTE * 2;
-                break;
+            break;
             case LOST:
                 tempCoins = 0;
-                break;
+            break;
         }
 
         // avoiding to win more coins that stocked in the machine
@@ -88,7 +88,6 @@ int main(int argc, char **argv) {
             controllerData.coinsWin = controllerData.coins;
         // updating the coins stayed in the machine
         controllerData.coins -= controllerData.coinsWin;
-
         kill(getpid(),SIGALRM);
 
         // waiting for restart

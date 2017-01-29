@@ -12,11 +12,12 @@
 #define GOHOME "\e[H"  /*<! ANSI code to move the cursor to 0,0 */
 
 const char* SYMBOLES[] = {"0","1","2","3","4","5","6","7","8","9"};
-/***********************************************************************
+
+/**
  * function given to the display thread
  * @param threadData struct containing data to display
  * @return NULL
- **********************************************************************/
+ */
 void* display(void* threadData){
 
 	controller_t* tdata = (controller_t*)(threadData);
@@ -24,15 +25,16 @@ void* display(void* threadData){
 	clock_gettime(CLOCK_MONOTONIC, &start);
 
 	// array with the possible messages
-	char* topScreen[3];
-	topScreen[WAITING] = "Insert a coin to start a game...";
-	topScreen[ROLLING] = "Game started!";
-	topScreen[FINISHED] = "Game finished!";
+	char* topScreen[4];
+	topScreen[WAITING] 		= "Insert a coin to start a game...";
+	topScreen[ROLLING] 		= "Game started !";
+	topScreen[FINISHED] 	= "Game finished !";
+	topScreen[ENDMSG] 		= "Come again soon ! =)";
 
 	char* winMessage[3];
-	winMessage[LOST] = "You Lost!";
+	winMessage[LOST] 			= "You Lost!";
 	winMessage[DOUBLEWIN] = "Double win!";
-	winMessage[FULLWIN] = "Jackpot!";
+	winMessage[FULLWIN] 	= "Jackpot!";
 
 	while(1){
 		// the text to display is selected in the array
@@ -53,20 +55,21 @@ void* display(void* threadData){
 		// waiting before refresh
 		usleep(waitAFrequency(&start,&finish,FREQUENCY));
 
-        if (tdata->wheels[0].condMutex->var == FINISHEDPROGRAM){
-            return NULL;
-        }
+    if (tdata->wheels[0].condMutex->var == FINISHEDPROGRAM){
+				printf(CLEARSCREEN GOHOME "%s\n\n ",topScreen[ENDMSG]);
+        return NULL;
+    }
 	}
 	return NULL;
 }
 
-/***********************************************************************
+/**
  * calculate the time to wait before the next refresh with the time of process
  * @param start Start struct with the timer's begin
  * @param finish Finish struct with the timer's end
  * @param frequency freq of screen refresh
  * @return time to wait in nanoseconds or 0 if work process too long
- **********************************************************************/
+*/
 double waitAFrequency(struct timespec* start, struct timespec* finish, int frequency){
 
 	double sleepTime, deltaT = 0;
