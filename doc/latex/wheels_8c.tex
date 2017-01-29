@@ -1,0 +1,138 @@
+\hypertarget{wheels_8c}{\section{/home/shinra/\+Clion\+Projects/jackpot/libs/wheels.c File Reference}
+\label{wheels_8c}\index{/home/shinra/\+Clion\+Projects/jackpot/libs/wheels.\+c@{/home/shinra/\+Clion\+Projects/jackpot/libs/wheels.\+c}}
+}
+
+
+wheels's functions  
+
+
+{\ttfamily \#include \char`\"{}wheels.\+h\char`\"{}}\\*
+Include dependency graph for wheels.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wheels_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{wheels_8c_a59ef57831500f5b1144c9e921d61d4a9}{spinner} (void $\ast$thread\+Data)
+\item 
+double \hyperlink{wheels_8c_a6f17531bb0bf5f5af8f272e54f2b6b25}{wait\+A\+Moment} (struct timespec $\ast$start, struct timespec $\ast$\hyperlink{timing_8c_a94ca335b433152f4af4e062084826ae0}{finish}, int time)
+\item 
+int \hyperlink{wheels_8c_a325987f64a525993cea919a5060e2933}{Get\+Win} (\hyperlink{structcontroller__t}{controller\+\_\+t} controller\+Data)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+wheels's functions 
+
+\begin{DoxyAuthor}{Author}
+B\+U\+F\+F\+O Pierre, D\+A S\+I\+L\+V\+A Gabriel, M\+E\+H\+M\+E\+D Blazevic 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+25.\+01.\+2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{wheels_8c_a325987f64a525993cea919a5060e2933}{\index{wheels.\+c@{wheels.\+c}!Get\+Win@{Get\+Win}}
+\index{Get\+Win@{Get\+Win}!wheels.\+c@{wheels.\+c}}
+\subsubsection[{Get\+Win}]{\setlength{\rightskip}{0pt plus 5cm}int Get\+Win (
+\begin{DoxyParamCaption}
+\item[{{\bf controller\+\_\+t}}]{controller\+Data}
+\end{DoxyParamCaption}
+)}}\label{wheels_8c_a325987f64a525993cea919a5060e2933}
+return result of the game 
+\begin{DoxyParams}{Parameters}
+{\em controller\+Data} & -\/ controller containing the wheels \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+win status, F\+U\+L\+L\+W\+I\+N $\vert$ D\+O\+U\+B\+L\+E\+W\+I\+N $\vert$ L\+O\+S\+T 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{wheels_8c_a325987f64a525993cea919a5060e2933_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{wheels_8c_a59ef57831500f5b1144c9e921d61d4a9}{\index{wheels.\+c@{wheels.\+c}!spinner@{spinner}}
+\index{spinner@{spinner}!wheels.\+c@{wheels.\+c}}
+\subsubsection[{spinner}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ spinner (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{thread\+Data}
+\end{DoxyParamCaption}
+)}}\label{wheels_8c_a59ef57831500f5b1144c9e921d61d4a9}
+run the wheels, \char`\"{}rien ne va plus\char`\"{} 
+\begin{DoxyParams}{Parameters}
+{\em thread\+Data} & -\/ thread's data, containing speed of rotation and current value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{wheels_8c_a59ef57831500f5b1144c9e921d61d4a9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{wheels_8c_a59ef57831500f5b1144c9e921d61d4a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{wheels_8c_a6f17531bb0bf5f5af8f272e54f2b6b25}{\index{wheels.\+c@{wheels.\+c}!wait\+A\+Moment@{wait\+A\+Moment}}
+\index{wait\+A\+Moment@{wait\+A\+Moment}!wheels.\+c@{wheels.\+c}}
+\subsubsection[{wait\+A\+Moment}]{\setlength{\rightskip}{0pt plus 5cm}double wait\+A\+Moment (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{start, }
+\item[{struct timespec $\ast$}]{finish, }
+\item[{int}]{time}
+\end{DoxyParamCaption}
+)}}\label{wheels_8c_a6f17531bb0bf5f5af8f272e54f2b6b25}
+calculate the time to wait before the next refresh with the process time 
+\begin{DoxyParams}{Parameters}
+{\em start} & -\/ start struct with the timer's begin \\
+\hline
+{\em finish} & -\/ finish struct with the timer's end \\
+\hline
+{\em time} & -\/ time in miliseconds to wait \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+time to wait in nanoseconds or 0 if work process too long 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{wheels_8c_a6f17531bb0bf5f5af8f272e54f2b6b25_icgraph}
+\end{center}
+\end{figure}
+
+
